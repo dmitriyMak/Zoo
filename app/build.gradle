@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    def androidConfigurations = rootProject.ext.androidConfigurations
+
+    compileSdkVersion androidConfigurations.androidCompileSdkVersion
+    defaultConfig {
+        minSdkVersion androidConfigurations.androidMinSdkVersion
+        targetSdkVersion androidConfigurations.androidTargetSdkVersion
+        versionCode androidConfigurations.versionCode
+        versionName androidConfigurations.versionName
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+        freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+    }
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation(project(path: ":presentation"))
+    implementation(project(path: ":data"))
+
+    def dependencies = rootProject.ext.dependencies
+
+    implementation dependencies.libs
+
+    implementation dependencies.kotlin
+    implementation dependencies.kotlinCoroutines
+
+    implementation dependencies.dagger
+    kapt dependencies.daggerCompiler
+    implementation dependencies.daggerAndroid
+    kapt dependencies.daggerAndroidProcessor
+    implementation dependencies.daggerAndroidSupport
+
+    implementation dependencies.okHttp
+    implementation dependencies.okHttpInterceptor
+    implementation dependencies.gson
+    implementation dependencies.retrofit
+    implementation dependencies.retrofitGsonConverter
+
+    implementation dependencies.timber
+}

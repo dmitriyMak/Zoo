@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    def androidConfigurations = rootProject.ext.androidConfigurations
+
+    compileSdkVersion androidConfigurations.androidCompileSdkVersion
+    defaultConfig {
+        minSdkVersion androidConfigurations.androidMinSdkVersion
+        targetSdkVersion androidConfigurations.androidTargetSdkVersion
+        versionCode androidConfigurations.versionCode
+        versionName androidConfigurations.versionName
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    def dependencies = rootProject.ext.dependencies
+
+    implementation dependencies.libs
+
+    implementation dependencies.kotlin
+    implementation dependencies.kotlinCoroutines
+
+    implementation dependencies.dagger
+    kapt dependencies.daggerCompiler
+    implementation dependencies.daggerAndroid
+    kapt dependencies.daggerAndroidProcessor
+    implementation dependencies.daggerAndroidSupport
+}

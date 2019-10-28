@@ -1,0 +1,78 @@
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+ext.androidConfigurations = [
+        applicationId           : "app.test.zoo",
+        androidMinSdkVersion    : 21,
+        androidTargetSdkVersion : 28,
+        androidCompileSdkVersion: 28,
+        versionCode             : 1,
+        versionName             : "1.0"
+]
+
+def versions = [
+        //android
+        appCompatVersion       : '1.1.0',
+        constraintLayoutVersion: '1.1.3',
+        recyclerViewVersion    : '1.1.0-rc01',
+        googleMaterialVersion  : '1.2.0-alpha01',
+
+        //Kotlin
+        kotlinCoroutinesVersion: '1.3.2',
+
+        //Lifecycle
+        lifecycleVersion       : '2.2.0-rc01',
+
+        //Dagger
+        daggerVersion          : '2.25.2',
+
+        //Networking
+        okHttpVersion          : '4.2.2',
+        gsonVersion            : '2.8.6',
+        retrofitVersion        : '2.6.2',
+
+        fragmentKtxVersion     : '1.2.0-rc01',
+        picassoVersion         : '2.71828',
+        timberVersion          : '4.7.1'
+]
+
+ext.dependencies = [
+        libs                  : fileTree(dir: 'libs', include: ['*.jar']),
+
+        //android
+        appCompat             : "androidx.appcompat:appcompat:${versions.appCompatVersion}",
+        constraintLayout      : "androidx.constraintlayout:constraintlayout:${versions.constraintLayoutVersion}",
+        recyclerView          : "androidx.recyclerview:recyclerview:${versions.recyclerViewVersion}",
+        googleMaterial        : "com.google.android.material:material:${versions.googleMaterialVersion}",
+
+        //Kotlin
+        kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion",
+        kotlinCoroutines      : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutinesVersion}",
+
+        //Lifecycle
+        lifecycleExtentions   : "androidx.lifecycle:lifecycle-extensions:${versions.lifecycleVersion}",
+        lifecycleCompiler     : "androidx.lifecycle:lifecycle-compiler:${versions.lifecycleVersion}",
+        livedata              : "androidx.lifecycle:lifecycle-livedata:${versions.lifecycleVersion}",
+
+        //Dagger
+        dagger                : "com.google.dagger:dagger:${versions.daggerVersion}",
+        daggerCompiler        : "com.google.dagger:dagger-compiler:${versions.daggerVersion}",
+        daggerAndroid         : "com.google.dagger:dagger-android:${versions.daggerVersion}",
+        daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${versions.daggerVersion}",
+        daggerAndroidSupport  : "com.google.dagger:dagger-android-support:${versions.daggerVersion}",
+
+        //Networking
+        okHttp                : "com.squareup.okhttp3:okhttp:${versions.okHttpVersion}",
+        okHttpInterceptor     : "com.squareup.okhttp3:logging-interceptor:${versions.okHttpVersion}",
+        gson                  : "com.google.code.gson:gson:${versions.gsonVersion}",
+        retrofit              : "com.squareup.retrofit2:retrofit:${versions.retrofitVersion}",
+        retrofitGsonConverter : "com.squareup.retrofit2:converter-gson:${versions.retrofitVersion}",
+
+        fragmentKtx           : "androidx.fragment:fragment-ktx:${versions.fragmentKtxVersion}",
+        picasso               : "com.squareup.picasso:picasso:${versions.picassoVersion}",
+        timber                : "com.jakewharton.timber:timber:${versions.timberVersion}"
+]

@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    def androidConfigurations = rootProject.ext.androidConfigurations
+
+    compileSdkVersion androidConfigurations.androidCompileSdkVersion
+    defaultConfig {
+        minSdkVersion androidConfigurations.androidMinSdkVersion
+        targetSdkVersion androidConfigurations.androidTargetSdkVersion
+        versionCode androidConfigurations.versionCode
+        versionName androidConfigurations.versionName
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+        freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+    }
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    api project(':domain')
+
+    def dependencies = rootProject.ext.dependencies
+
+    implementation dependencies.libs
+
+    implementation dependencies.appCompat
+    implementation dependencies.constraintLayout
+    implementation dependencies.recyclerView
+    implementation dependencies.googleMaterial
+
+    implementation dependencies.kotlin
+    implementation dependencies.kotlinCoroutines
+
+    implementation dependencies.lifecycleExtentions
+    kapt dependencies.lifecycleCompiler
+    implementation dependencies.livedata
+
+    implementation dependencies.dagger
+    kapt dependencies.daggerCompiler
+    implementation dependencies.daggerAndroid
+    kapt dependencies.daggerAndroidProcessor
+    implementation dependencies.daggerAndroidSupport
+
+    implementation dependencies.fragmentKtx
+    implementation dependencies.picasso
+    implementation dependencies.timber
+}
